@@ -1,23 +1,55 @@
 // ignore_for_file: must_be_immutable, use_build_context_synchronously
 
 import 'package:animated_notch_bottom_bar/animated_notch_bottom_bar/animated_notch_bottom_bar.dart';
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:janssen_delivery/data/controller.dart';
+import 'package:janssen_delivery/widgets/login/loginController.dart';
+import 'package:janssen_delivery/widgets/login/loginPage.dart';
 import 'package:janssen_delivery/widgets/page1/page1.dart';
 import 'package:janssen_delivery/widgets/page2/page2.dart';
 import 'package:janssen_delivery/widgets/page3/page3.dart';
+import 'package:provider/provider.dart';
+// import 'package:supabase_flutter/supabase_flutter.dart';
 
-void main() {
+Future<void> main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp(
+    options: const FirebaseOptions(
+      apiKey: 'AIzaSyAbVWkXPlOSYWPfYlfQxwzg2G91fPkAnDU',
+      appId: '1:1048077712638:web:1db5bc937b81d8354cf9af',
+      messagingSenderId: '1048077712638',
+      projectId: 'janssendelivery-ba129',
+      databaseURL: "https://janssendelivery-ba129-default-rtdb.firebaseio.com",
+      authDomain: "janssendelivery-ba129.firebaseapp.com",
+      storageBucket: "janssendelivery-ba129.appspot.com",
+    ),
+  );
+  // await Supabase.initialize(
+  //   url: 'https://bazhicogxlurbtcjmtdz.supabase.co',
+  //   anonKey:
+  //       'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImJhemhpY29neGx1cmJ0Y2ptdGR6Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3MzEwNzYyODksImV4cCI6MjA0NjY1MjI4OX0.u7E_HvSrhIOupyWELIQ5wokVoMjKRpAr_8saI4XJf6U',
+  // );
   runApp(const MyApp());
 }
 
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
-
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      debugShowCheckedModeBanner: false,
-      home: MyHomePage(),
+    return MultiProvider(
+      providers: [
+        ChangeNotifierProvider(create: (context) => OrderController()),
+        ChangeNotifierProvider(create: (context) => LoginController())
+      ],
+      child: MaterialApp(
+        debugShowCheckedModeBanner: false,
+        home: Consumer<LoginController>(
+          builder: (context, myType, child) {
+            return myType.loggedIn == false ? LoginPage() : MyHomePage();
+          },
+        ),
+      ),
     );
   }
 }
