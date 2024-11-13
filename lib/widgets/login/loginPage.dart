@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:janssen_delivery/main.dart';
 import 'package:janssen_delivery/widgets/login/loginController.dart';
 import 'package:provider/provider.dart';
 
@@ -68,7 +67,7 @@ class LoginPage extends StatelessWidget {
                                 prefixIcon: const Icon(Icons.car_repair,
                                     color: Colors.blue),
                               ),
-                              keyboardType: TextInputType.text,
+                              // keyboardType: TextInputType.number,
                               validator: (value) {
                                 if (value == null || value.isEmpty) {
                                   return 'Please enter the car number';
@@ -103,7 +102,9 @@ class LoginPage extends StatelessWidget {
                             // Login Button
                             ElevatedButton(
                               onPressed: () {
-                                context.read<LoginController>().Login();
+                                context.read<LoginController>().login(
+                                    _carNumberController.text,
+                                    _passwordController.text);
                               },
                               style: ElevatedButton.styleFrom(
                                 padding:

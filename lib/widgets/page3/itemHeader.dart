@@ -1,18 +1,43 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
+import 'package:janssen_delivery/data/models/orders.dart';
 import 'package:janssen_delivery/widgets/page1/page1.dart';
 import 'package:janssen_delivery/widgets/page3/itemDatails.dart';
 
 class ItemHeader extends StatelessWidget {
-  const ItemHeader({super.key});
+  const ItemHeader({super.key, required this.order});
+  final OrderModel order;
 
   @override
   Widget build(BuildContext context) {
+    Color blue = const Color.fromARGB(255, 0, 5, 241);
+    Color green = const Color.fromARGB(255, 20, 177, 57);
+    Color red = const Color.fromARGB(255, 241, 0, 20);
+    Color colorc() {
+      if (order.canceled == true) {
+        return red;
+      } else if (order.deleverd == true) {
+        return green;
+      } else {
+        return blue;
+      }
+    }
+
+    String text() {
+      if (order.canceled == true) {
+        return "canceld";
+      } else if (order.deleverd == true) {
+        return "deleverd";
+      } else {
+        return "On my way";
+      }
+    }
+
     return GestureDetector(
       onTap: () {
-        Navigator.of(context)
-            .push(MaterialPageRoute(builder: (context) => ItemDetails()));
+        Navigator.of(context).push(
+            MaterialPageRoute(builder: (context) => ItemDetails(order: order)));
       },
       child: Padding(
         padding: const EdgeInsets.only(
@@ -22,9 +47,8 @@ class ItemHeader extends StatelessWidget {
         ),
         child: Container(
           decoration: BoxDecoration(
-              color: Color.fromARGB(255, 233, 224, 108),
-              border: Border.all(
-                  color: const Color.fromARGB(255, 0, 5, 241), width: 2.5),
+              color: const Color.fromARGB(255, 233, 224, 108),
+              border: Border.all(color: colorc(), width: 2.5),
               borderRadius: const BorderRadius.all(
                 Radius.circular(9),
               )),
@@ -41,23 +65,23 @@ class ItemHeader extends StatelessWidget {
                         const Gap(7),
                         Container(
                           decoration: BoxDecoration(
-                              color: const Color.fromARGB(255, 0, 5, 241),
+                              color: colorc(),
                               borderRadius: BorderRadius.circular(50)),
                           width: 25,
                           height: 25,
-                          child: const Center(
+                          child: Center(
                               child: Text(
-                            "3",
-                            style: TextStyle(
+                            "${order.orderNum}",
+                            style: const TextStyle(
                                 color: Colors.white,
                                 fontSize: 13,
                                 fontWeight: FontWeight.w900),
                           )),
                         ),
                         const Gap(7),
-                        const Text(
-                          "01225462948",
-                          style: TextStyle(
+                        Text(
+                          order.phoneNum,
+                          style: const TextStyle(
                               color: Colors.black,
                               fontSize: 13,
                               fontWeight: FontWeight.w900),
@@ -72,9 +96,9 @@ class ItemHeader extends StatelessWidget {
                     const Gap(5),
                     Row(
                       children: [
-                        const Text(
-                          " ج م 23332",
-                          style: TextStyle(
+                        Text(
+                          " ج م ${order.items.map((e) => e.price).reduce((a, b) => a + b).toStringAsFixed(2)}",
+                          style: const TextStyle(
                               color: Colors.black,
                               fontSize: 13,
                               fontWeight: FontWeight.w900),
@@ -82,13 +106,13 @@ class ItemHeader extends StatelessWidget {
                         const Gap(6),
                         Container(
                           decoration: BoxDecoration(
-                              color: const Color.fromARGB(255, 0, 5, 241),
+                              color: colorc(),
                               borderRadius: BorderRadius.circular(6)),
                           width: 100,
                           height: 25,
-                          child: const Center(
+                          child: Center(
                               child: Text(
-                            "On my way",
+                            text(),
                             style: TextStyle(
                                 color: Colors.white,
                                 fontSize: 15,
@@ -115,25 +139,25 @@ class ItemHeader extends StatelessWidget {
                     ),
                     Column(
                       children: [
-                        const Text(
-                          "الشرقيه",
-                          style: TextStyle(
+                        Text(
+                          order.governomate,
+                          style: const TextStyle(
                               fontSize: 18,
                               fontWeight: FontWeight.bold,
                               color: Color.fromARGB(255, 7, 84, 226)),
                         ),
                         Row(
                           children: [
-                            const Text(
-                              ",العاشر من رمضان",
-                              style: TextStyle(
+                            Text(
+                              ",${order.city}",
+                              style: const TextStyle(
                                   fontSize: 15,
                                   fontWeight: FontWeight.bold,
                                   color: Color.fromARGB(255, 68, 2, 209)),
                             ),
-                            const Text(
-                              "السعيديه بجوار موقف التوكنةك",
-                              style: TextStyle(
+                            Text(
+                              order.adress,
+                              style: const TextStyle(
                                   fontSize: 15,
                                   fontWeight: FontWeight.bold,
                                   color: Colors.black),

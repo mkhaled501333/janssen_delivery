@@ -25,11 +25,7 @@ Future<void> main() async {
       storageBucket: "janssendelivery-ba129.appspot.com",
     ),
   );
-  // await Supabase.initialize(
-  //   url: 'https://bazhicogxlurbtcjmtdz.supabase.co',
-  //   anonKey:
-  //       'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImJhemhpY29neGx1cmJ0Y2ptdGR6Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3MzEwNzYyODksImV4cCI6MjA0NjY1MjI4OX0.u7E_HvSrhIOupyWELIQ5wokVoMjKRpAr_8saI4XJf6U',
-  // );
+
   runApp(const MyApp());
 }
 
@@ -66,6 +62,7 @@ class MyHomePage extends StatelessWidget {
   ];
   @override
   Widget build(BuildContext context) {
+    context.read<OrderController>().getData();
     return Scaffold(
       body: PageView(
         controller: _pageController,

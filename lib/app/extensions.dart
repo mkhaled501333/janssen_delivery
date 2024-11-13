@@ -31,3 +31,9 @@ extension Fer on String {
     return double.parse(this);
   }
 }
+
+extension Fdf on Iterable<num> {
+  num count() {
+    return isEmpty ? 0 : reduce((a, b) => a + b);
+  }
+}
