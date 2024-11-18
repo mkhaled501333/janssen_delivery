@@ -41,8 +41,8 @@ class Page3 extends StatelessWidget {
                         },
                         indicatorSize: TabBarIndicatorSize.tab,
                         dividerColor: Colors.transparent,
-                        indicator: const BoxDecoration(
-                          color: Colors.green,
+                        indicator: BoxDecoration(
+                          color: indicatorColor(myType.pageindex),
                           borderRadius: BorderRadius.all(Radius.circular(10)),
                         ),
                         labelColor: Colors.white,
@@ -57,40 +57,55 @@ class Page3 extends StatelessWidget {
                   ),
                 ),
               ),
-              body: Column(
-                children: [
-                  Visibility(
-                      visible: myType.pageindex == 0,
-                      child: Column(
-                        children: inbox
-                            .map((e) => ItemHeader(
-                                  order: e,
-                                ))
-                            .toList(),
-                      )),
-                  Visibility(
-                      visible: myType.pageindex == 1,
-                      child: Column(
-                        children: done
-                            .map((e) => ItemHeader(
-                                  order: e,
-                                ))
-                            .toList(),
-                      )),
-                  Visibility(
-                      visible: myType.pageindex == 2,
-                      child: Column(
-                        children: canceld
-                            .map((e) => ItemHeader(
-                                  order: e,
-                                ))
-                            .toList(),
-                      )),
-                ],
+              body: SingleChildScrollView(
+                child: Column(
+                  children: [
+                    Visibility(
+                        visible: myType.pageindex == 0,
+                        child: Column(
+                          children: inbox
+                              .map((e) => ItemHeader(
+                                    order: e,
+                                  ))
+                              .toList(),
+                        )),
+                    Visibility(
+                        visible: myType.pageindex == 1,
+                        child: Column(
+                          children: done
+                              .map((e) => ItemHeader(
+                                    order: e,
+                                  ))
+                              .toList(),
+                        )),
+                    Visibility(
+                        visible: myType.pageindex == 2,
+                        child: Column(
+                          children: canceld
+                              .map((e) => ItemHeader(
+                                    order: e,
+                                  ))
+                              .toList(),
+                        )),
+                    SizedBox(
+                      height: 100,
+                    )
+                  ],
+                ),
               ),
             );
           },
         ));
+  }
+
+  Color? indicatorColor(int pageIndex) {
+    if (pageIndex == 0) {
+      return const Color.fromARGB(255, 3, 129, 233);
+    } else if (pageIndex == 1) {
+      return Colors.green;
+    } else {
+      return Colors.red;
+    }
   }
 }
 
