@@ -224,15 +224,15 @@ class ItemDetails extends StatelessWidget {
             ),
             //السوال عن الموقغ
             Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 66),
+              padding:  const EdgeInsets.symmetric(horizontal: 66),
               child: TextButton(
-                  style: const ButtonStyle(
+                  style:  const ButtonStyle(
                       backgroundColor: WidgetStatePropertyAll(
                           Color.fromARGB(255, 0, 5, 241))),
                   onPressed: () async {
                     int phone = 01225462948;
                     var whatsappUrl =
-                        "whatsapp://send?phone=$phone&text=${Uri.encodeFull("السلام عليكم \n معك محمد  \n من فظلك ارسل بيانات الموقع")}";
+                        "whatsapp://send?phone=$phone&text=${Uri.encodeFull("السلام عليكم \n مع حضرتك ${order.driverName}  \n من فظلك ارسل بيانات الموقع")}";
                     await launchUrl(Uri.parse(whatsappUrl));
                   },
                   child: Row(
