@@ -18,6 +18,7 @@ class OrderController extends ChangeNotifier {
     DatabaseReference ref = FirebaseDatabase.instance.ref("orders/");
     final d = ref.orderByChild('closed').equalTo(false);
     d.once().then((onValue) {
+      print('once 2');
       for (var element in onValue.snapshot.children) {
         final order = OrderModel.fromJson(jsonEncode(element.value));
         if (order.carNum == carNum) {
