@@ -199,6 +199,56 @@ class ItemDetails extends StatelessWidget {
                         ),
                       ),
                     ),
+                    Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 5),
+                      child: Row(
+                        children: [
+                          Container(
+                            width: MediaQuery.of(context)
+                                    .removePadding()
+                                    .size
+                                    .width *
+                                .6,
+                            child: const Center(
+                                child: Text(
+                              "",
+                              style: TextStyle(
+                                  fontSize: 19, fontWeight: FontWeight.bold),
+                            )),
+                          ),
+                          Container(
+                            width: MediaQuery.of(context)
+                                    .removePadding()
+                                    .size
+                                    .width *
+                                .16,
+                            child: const Center(
+                                child: Text(
+                              "",
+                              style: TextStyle(
+                                  fontSize: 19, fontWeight: FontWeight.bold),
+                            )),
+                          ),
+                          Container(
+                            width: MediaQuery.of(context)
+                                    .removePadding()
+                                    .size
+                                    .width *
+                                .16,
+                            decoration: BoxDecoration(
+                                border: Border.all(),
+                                color:
+                                    const Color.fromARGB(255, 139, 139, 125)),
+                            child: Center(
+                                child: Text(
+                              "${order.items.map((t) => t.price).count()}",
+                              style: TextStyle(
+                                  fontSize: 19, fontWeight: FontWeight.bold),
+                            )),
+                          ),
+                        ].reversed.toList(),
+                      ),
+                    ),
                     const Gap(11),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.center,
@@ -210,7 +260,7 @@ class ItemDetails extends StatelessWidget {
                             child: Padding(
                               padding: const EdgeInsets.all(8.0),
                               child: Text(
-                                "${order.items.map((t) => t.price).count()} : اجمالى السعر",
+                                "${order.requeredCharged} : المطلوب تحصيله",
                                 style: const TextStyle(
                                     fontSize: 19, fontWeight: FontWeight.bold),
                               ),
@@ -224,9 +274,9 @@ class ItemDetails extends StatelessWidget {
             ),
             //السوال عن الموقغ
             Padding(
-              padding:  const EdgeInsets.symmetric(horizontal: 66),
+              padding: const EdgeInsets.symmetric(horizontal: 66),
               child: TextButton(
-                  style:  const ButtonStyle(
+                  style: const ButtonStyle(
                       backgroundColor: WidgetStatePropertyAll(
                           Color.fromARGB(255, 0, 5, 241))),
                   onPressed: () async {

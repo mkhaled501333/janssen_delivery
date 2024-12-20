@@ -54,8 +54,7 @@ class OrderController extends ChangeNotifier {
   int get totalOrders => orders.length;
   int get deleverd => orders.values.where((e) => e.deleverd == true).length;
   int get canceled => orders.values.where((e) => e.canceled == true).length;
-  num get totalReserved =>
-      orders.values.expand((e) => e.items).map((e) => e.price).count();
+  num get totalReserved => orders.values.map((e) => e.requeredCharged).count();
   num get cargedAmount => orders.values.map((e) => e.chargedamount).count();
   int pageindex = 0;
   refreshUI() => notifyListeners();
