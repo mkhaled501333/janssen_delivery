@@ -260,7 +260,7 @@ class ItemDetails extends StatelessWidget {
                             child: Padding(
                               padding: const EdgeInsets.all(8.0),
                               child: Text(
-                                "${order.requeredCharged} : المطلوب تحصيله",
+                                "${order.items.map((e) => e.requiredcharged,).reduce((value, element) => value+element,)} : المطلوب تحصيله",
                                 style: const TextStyle(
                                     fontSize: 19, fontWeight: FontWeight.bold),
                               ),

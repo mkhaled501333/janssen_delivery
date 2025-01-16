@@ -97,7 +97,7 @@ class ItemHeader extends StatelessWidget {
                     Row(
                       children: [
                         Text(
-                          " ج م ${order.items.map((e) => e.price).reduce((a, b) => a + b).toStringAsFixed(2)}",
+                          " ج م ${order.items.map((e) => e.requiredcharged).reduce((a, b) => a + b).toStringAsFixed(2)}",
                           style: const TextStyle(
                               color: Colors.black,
                               fontSize: 13,
